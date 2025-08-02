@@ -15,6 +15,7 @@ use FilamentTiptapEditor\Concerns\HasCustomActions;
 use FilamentTiptapEditor\Concerns\HasMentions;
 use FilamentTiptapEditor\Concerns\InteractsWithMedia;
 use FilamentTiptapEditor\Concerns\InteractsWithMenus;
+use FilamentTiptapEditor\Concerns\ListensToEvents;
 use Illuminate\Support\Js;
 use Illuminate\Support\Str;
 use JsonException;
@@ -32,6 +33,7 @@ class TiptapEditor extends Field
     use InteractsWithMedia;
     use InteractsWithMenus;
     use CanDispatchEvent;
+    use ListensToEvents;
 
     protected array $extensions = [];
 
