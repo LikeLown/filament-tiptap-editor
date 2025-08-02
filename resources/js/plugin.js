@@ -1,4 +1,4 @@
-import {Editor, isActive} from "@tiptap/core";
+import { Editor, isActive } from "@tiptap/core";
 import Blockquote from "@tiptap/extension-blockquote";
 import Bold from "@tiptap/extension-bold";
 import BulletList from "@tiptap/extension-bullet-list";
@@ -27,8 +27,8 @@ import Text from "@tiptap/extension-text";
 import TextStyle from "@tiptap/extension-text-style";
 import Underline from "@tiptap/extension-underline";
 import Highlight from "@tiptap/extension-highlight";
-import {BubbleMenu} from "@tiptap/extension-bubble-menu";
-import {FloatingMenu} from "@tiptap/extension-floating-menu";
+import { BubbleMenu } from "@tiptap/extension-bubble-menu";
+import { FloatingMenu } from "@tiptap/extension-floating-menu";
 import {
     CheckedList,
     Lead,
@@ -79,7 +79,7 @@ let coreExtensions = {
     details: [Details, DetailsSummary, DetailsContent],
     grid: [Grid, GridColumn],
     'grid-builder': [GridBuilder, GridBuilderColumn],
-    heading: [Heading.configure({levels: [1, 2, 3, 4, 5, 6]})],
+    heading: [Heading.configure({ levels: [1, 2, 3, 4, 5, 6] })],
     highlight: [Highlight],
     hr: [HorizontalRule],
     hurdle: [Hurdle],
@@ -94,19 +94,19 @@ let coreExtensions = {
             class: null,
         },
     })],
-    media: [CustomImage.configure({inline: true})],
+    media: [CustomImage.configure({ inline: true })],
     oembed: [Youtube, Vimeo, Video],
     'ordered-list': [OrderedList],
     small: [Small],
     strike: [Strike],
     subscript: [Subscript],
     superscript: [Superscript],
-    table: [Table.configure({resizable: true}), TableHeader, TableCell, TableRow],
+    table: [Table.configure({ resizable: true }), TableHeader, TableCell, TableRow],
     underline: [Underline],
 };
 
 let customExtensions = window.TiptapEditorExtensions || {};
-let editorExtensions = {...coreExtensions, ...customExtensions};
+let editorExtensions = { ...coreExtensions, ...customExtensions };
 
 const localeSwitcher = document.getElementById('activeLocale');
 if (localeSwitcher) {
@@ -132,51 +132,51 @@ document.addEventListener("dblclick", function (e) {
 
 Livewire.on('insertFromAction', (event) => {
     setTimeout(() => {
-        const proxyEvent = new CustomEvent('insert-content', { bubble: true, detail: event})
+        const proxyEvent = new CustomEvent('insert-content', { bubble: true, detail: event })
         window.dispatchEvent(proxyEvent);
     }, 100)
 })
 
 Livewire.on('insertBlockFromAction', (event) => {
     setTimeout(() => {
-        const proxyEvent = new CustomEvent('insert-block', { bubble: true, detail: event})
+        const proxyEvent = new CustomEvent('insert-block', { bubble: true, detail: event })
         window.dispatchEvent(proxyEvent);
     }, 100)
 })
 
 Livewire.on('updateBlockFromAction', (event) => {
     setTimeout(() => {
-        const proxyEvent = new CustomEvent('update-block', { bubble: true, detail: event})
+        const proxyEvent = new CustomEvent('update-block', { bubble: true, detail: event })
         window.dispatchEvent(proxyEvent);
     }, 100)
 })
 
 export default function tiptap({
-   state,
-   statePath,
-   tools = [],
-   disabled = false,
-   locale = 'en',
-   bubbleMenuTools = [],
-   floatingMenuTools = [],
-   placeholder = null,
-   mergeTags = [],
-   customDocument = null,
-   nodePlaceholders = [],
-   showOnlyCurrentPlaceholder = true,
-   debounce = null,
-   mentionItems = null,
-   emptyMentionItemsMessage = '',
-   mentionItemsPlaceholder = null,
-   mentionItemsLoading = null,
-   maxMentionItems = null,
-   mentionTrigger = '@',
-   livewireId,
-   getMentionItemsUsingEnabled = false,
-   getSearchResultsUsing,
-   mentionDebounce,
-   tippyPlacement = 'auto',
-   mentionSearchStrategy,
+    state,
+    statePath,
+    tools = [],
+    disabled = false,
+    locale = 'en',
+    bubbleMenuTools = [],
+    floatingMenuTools = [],
+    placeholder = null,
+    mergeTags = [],
+    customDocument = null,
+    nodePlaceholders = [],
+    showOnlyCurrentPlaceholder = true,
+    debounce = null,
+    mentionItems = null,
+    emptyMentionItemsMessage = '',
+    mentionItemsPlaceholder = null,
+    mentionItemsLoading = null,
+    maxMentionItems = null,
+    mentionTrigger = '@',
+    livewireId,
+    getMentionItemsUsingEnabled = false,
+    getSearchResultsUsing,
+    mentionDebounce,
+    tippyPlacement = 'auto',
+    mentionSearchStrategy,
     linkProtocols = [],
 }) {
     let editor = null;
@@ -205,7 +205,7 @@ export default function tiptap({
             let extensions = [
                 customDocument ? Document.extend({
                     content: customDocument
-                }) : Document ,
+                }) : Document,
                 Text,
                 Paragraph,
                 Dropcursor,
@@ -223,7 +223,7 @@ export default function tiptap({
                 TiptapBlock,
             ];
 
-            if(mentionItems || getMentionItemsUsingEnabled) {
+            if (mentionItems || getMentionItemsUsingEnabled) {
                 extensions.push(CustomMention.configure({
                     mentionItems,
                     emptyMentionItemsMessage,
@@ -241,13 +241,13 @@ export default function tiptap({
 
             if ((placeholder || nodePlaceholders) && (!disabled)) {
                 extensions.push(
-                  Placeholder.configure({
-                      showOnlyCurrent: showOnlyCurrentPlaceholder,
-                      placeholder: ({ node }) => {
-                          const nodeSpecificPlaceholder = nodePlaceholders?.[node.type.name];
-                          return nodeSpecificPlaceholder || placeholder || '';
-                      },
-                  })
+                    Placeholder.configure({
+                        showOnlyCurrent: showOnlyCurrentPlaceholder,
+                        placeholder: ({ node }) => {
+                            const nodeSpecificPlaceholder = nodePlaceholders?.[node.type.name];
+                            return nodeSpecificPlaceholder || placeholder || '';
+                        },
+                    })
                 );
             }
 
@@ -267,7 +267,7 @@ export default function tiptap({
                         appendTo: this.$refs.element,
                         zIndex: 10,
                     },
-                    shouldShow: ({state, from, to}) => {
+                    shouldShow: ({ state, from, to }) => {
                         if (
                             isActive(state, 'oembed') ||
                             isActive(state, 'vimeo') ||
@@ -362,7 +362,7 @@ export default function tiptap({
 
             return extensions;
         },
-        init: function() {
+        init: function () {
             let existing = this.$refs.element.querySelector('.tiptap');
             if (existing) {
                 existing.remove();
@@ -391,7 +391,7 @@ export default function tiptap({
             });
         },
         initEditor(content) {
-            if (! this.$el.querySelector('.tiptap')) {
+            if (!this.$el.querySelector('.tiptap')) {
                 const _this = this;
                 editor = new Editor({
                     element: _this.$refs.element,
@@ -408,12 +408,12 @@ export default function tiptap({
                             });
                         }
                     },
-                    onUpdate({editor}) {
+                    onUpdate({ editor }) {
                         _this.updatedAt = Date.now();
                         clearTimeout(_this.timeOut);
-                        _this.timeOut = setTimeout(function(){
+                        _this.timeOut = setTimeout(function () {
                             _this.state = editor.isEmpty ? null : editor.getJSON();
-                        },debounce ?? 0);
+                        }, debounce ?? 0);
                     },
                     onSelectionUpdate() {
                         _this.updatedAt = Date.now();
@@ -443,9 +443,9 @@ export default function tiptap({
         },
         updateEditorContent(content) {
             if (editor.isEditable) {
-                const {from, to} = editor.state.selection;
+                const { from, to } = editor.state.selection;
                 editor.commands.setContent(content, true);
-                editor.chain().focus().setTextSelection({from, to}).run();
+                editor.chain().focus().setTextSelection({ from, to }).run();
             }
         },
         refreshEditorContent() {
@@ -455,6 +455,7 @@ export default function tiptap({
             this.locale = event.detail.locale
         },
         insertContent(event) {
+            console.log(event);
             if (event.detail.statePath !== this.statePath) return
 
             switch (event.detail.type) {
@@ -515,7 +516,7 @@ export default function tiptap({
                         })
                         .run();
                 } else {
-                    editor.chain().focus().extendMarkRange('link').setLink({href: src}).insertContent(media?.link_text).run();
+                    editor.chain().focus().extendMarkRange('link').setLink({ href: src }).insertContent(media?.link_text).run();
                 }
             }
         },
@@ -576,7 +577,7 @@ export default function tiptap({
             editor
                 .chain()
                 .focus()
-                .setTextSelection({from: link.coordinates[0].$from.pos, to: link.coordinates[0].$to.pos})
+                .setTextSelection({ from: link.coordinates[0].$from.pos, to: link.coordinates[0].$to.pos })
                 .extendMarkRange('link')
                 .setLink({
                     href: link.href,
@@ -648,7 +649,7 @@ export default function tiptap({
         openBlockSettings(event) {
             if (event.detail.statePath !== this.statePath) return
 
-            this.$wire.dispatchFormEvent("tiptap::updateBlock", this.statePath, event.detail);
+            this.$wire.dispatch("tiptap::updateBlock", this.statePath, event.detail);
         },
         updateBlock(event) {
             if (event.detail.statePath !== this.statePath) return

@@ -2,8 +2,8 @@
 
 namespace FilamentTiptapEditor\Actions;
 
-use Filament\Forms\Components\Actions\Action;
-use Filament\Forms\Components\Grid;
+use Filament\Actions\Action;
+use Filament\Schemas\Components\Grid;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -25,7 +25,7 @@ class GridBuilderAction extends Action
 
         $this->modalWidth('md');
 
-        $this->form([
+        $this->schema([
             Grid::make(2)
                 ->schema([
                     ViewField::make('grid_preview')

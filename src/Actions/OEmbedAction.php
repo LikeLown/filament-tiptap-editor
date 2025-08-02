@@ -2,12 +2,12 @@
 
 namespace FilamentTiptapEditor\Actions;
 
+use Filament\Actions\Action;
+use Filament\Schemas\Components\Group;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
-use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\CheckboxList;
-use Filament\Forms\Components\Group;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\TimePicker;
 use FilamentTiptapEditor\TiptapEditor;
@@ -26,7 +26,7 @@ class OEmbedAction extends Action
         $this
             ->modalWidth('lg')
             ->modalHeading(trans('filament-tiptap-editor::oembed-modal.heading'))
-            ->form([
+            ->schema([
                 TextInput::make('url')
                     ->label(trans('filament-tiptap-editor::oembed-modal.labels.url'))
                     ->reactive()
